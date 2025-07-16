@@ -207,7 +207,8 @@ mv ./docs/user/* ./tests/unit/
 ```
 config/ 디렉토리 전체를 backup_config/로 복사하시오.
 ```shell
-mkdir -p ./backup_config/config/ | cp -r ./config/ ./backup_config/
+mkdir -p ./backup_config/config/ 
+cp -r ./config/ ./backup_config/
 ```
 #### 5-2. 조건부 파일 검색
 현재 위치가 ~/practice/project/src/utils/일 때:
@@ -321,7 +322,8 @@ cp ./config/* ./src/
 
 main을 ../../project_backup/으로 복사하시오.
 ```shell
-mkdir ./../../project_backup | cp -r ./../../src/main/ ./../../project_backup/
+mkdir ./../../project_backup 
+cp -r ./../../src/main/ ./../../project_backup/
 ```
 
 utils/ 디렉토리의 모든 .py 파일을 현재 디렉토리의 models/ 디렉토리로 복사하시오.
