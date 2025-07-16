@@ -319,9 +319,9 @@ cp ./config/* ./src/
 ### 7-2. 백업 및 정리
 현재 위치가 ~/practice/project/src/main/일 때:
 
-전체 프로젝트를 ../../project_backup/으로 복사하시오.
+main을 ../../project_backup/으로 복사하시오.
 ```shell
-mkdir ./../../project_backup | cp -r ./../../../project/ ./../../project_backup/
+mkdir ./../../project_backup | cp -r ./../../src/main/ ./../../project_backup/
 ```
 
 utils/ 디렉토리의 모든 .py 파일을 현재 디렉토리의 models/ 디렉토리로 복사하시오.
