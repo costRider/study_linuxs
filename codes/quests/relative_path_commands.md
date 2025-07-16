@@ -110,15 +110,15 @@ ls [상대주소]
 
 app.py 파일로 이동하는 상대 주소를 작성하시오.
 ```shell
-cd ./practice/project/docs/user/
+cd ./../../src/main/
 ```
 test_main.py 파일로 이동하는 상대 주소를 작성하시오.
 ```shell
-cd ./../../src/main/
+cd ./../../tests/
 ```
 src/utils/ 디렉토리로 이동하는 상대 주소를 작성하시오.
 ```shell
-cd ./../../src/utils/
+ cd ./../../src/utils/
 ```
 #### 2-2. 역방향 상대 주소
 현재 위치가 ~/practice/project/tests/unit/일 때:
@@ -157,8 +157,8 @@ cat ./../../config/settings.conf
 
 현재 디렉토리에 config.py 파일을 생성하고 "# Configuration module"이라는 내용을 작성하시오.
 ```shell
-touch config.py
-vi config.py 
+touch ./config.py
+vi ./config.py 
 ```
 tests/ 디렉토리에 test_app.py 파일을 생성하고 "# App test file"이라는 내용을 작성하시오.
 ```shell
@@ -172,7 +172,7 @@ vi ./../../tests/test_app.py
 
 api.md 파일을 docs/user/ 디렉토리에 api_copy.md로 복사하시오.
 ```shell
-cp ./../../docs/dev/api.md ./../../docs/user/api.md
+cp ./api.md ./../user/api_copy.md
 ```
 src/utils/helper.py 파일을 현재 디렉토리에 복사하시오.
 ```shell
@@ -199,7 +199,7 @@ mv ./../src/main/config.py ./../config/config.py
 현재 위치가 ~/practice/project/일 때:
 src/main/ 디렉토리의 모든 파일을 docs/dev/ 디렉토리에 복사하시오.
 ```shell
-cp ./src/main/*.py ./docs/dev/
+cp ./src/main/* ./docs/dev/
 ```
 docs/user/ 디렉토리의 모든 파일을 tests/unit/ 디렉토리로 이동하시오.
 ```shell
