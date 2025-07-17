@@ -10,7 +10,7 @@ BespinGlobal x Green Computer Acamedy Study
     * [과제2(2025.07.15)](https://github.com/costRider/study_linuxs/blob/5be984dc46ff3aa6e7e959ff403fb06798da6f5c/codes/quests/basic_linux_commands.md)
     * [과제3(2025.07.16)](https://github.com/costRider/study_linxs/blob/9f358b2f20404947450b44520e45d0c22b5b8e57/codes/quests/basic_more_linux_commands.md)
     * [과제4(2025.07.16)](https://github.com/costRider/study_linuxs/blob/204950bdf8f980fe46a4869a35c38f9d8d094246/codes/quests/relative_path_commands.md)
-    * 
+    * [과제5(2025.07.17)](https://github.com/costRider/study_linuxs/blob/d46a3b803731b49bac47b1b944584f80ca44b6e9/codes/quests/40_linux_wildcard_practice.md)
 
 ### 수업실습
 * [수업 실습 정리](https://github.com/costRider/study_linuxs/blob/51027f6cb0f16dbf1c8b18eebce692cacdbb7015/study)
