@@ -274,8 +274,7 @@ mv api_copy.md ../../../src/main/
 ```
 
 ```shell
-cp ./../dev/api.md ./api_copy.md
-mv ./api_copy.md ./../../src/main/api_copy.md
+cp ./../dev/api.md ./api_copy.md && mv ./api_copy.md ./../../src/main/api_copy.md
 ```
 
 ### 6-2. 경로 최적화
@@ -322,8 +321,7 @@ cp ./config/* ./src/
 
 main을 ../../project_backup/으로 복사하시오.
 ```shell
-mkdir ./../../project_backup 
-cp -r ./../../src/main/ ./../../project_backup/
+mkdir ./../../project_backup  && cp -r ./../../src/main/ ./../../project_backup/
 ```
 
 utils/ 디렉토리의 모든 .py 파일을 현재 디렉토리의 models/ 디렉토리로 복사하시오.
