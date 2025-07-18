@@ -51,6 +51,16 @@ echo "안녕하세요\! 리눅스 세계에 오신 것을 환영합니다."
 **명령어를 작성하세요:**
 ```shell
 \# nano 편집기로 hello.sh 파일 열기
+nano hello.sh
+
+#내용 작성 
+#!/bin/bash
+
+echo "안녕하세요\! 리눅스 세계에 오신 것을 환영합니다."
+
+ctrl + O 
+ctrl + x
+
 ```
 ### 1-2. 파일 내용 수정
 
@@ -59,6 +69,15 @@ system\_info.txt 파일을 nano로 열어 현재 시스템 정보를 기록하�
 **명령어를 작성하세요:**
 ```shell
 \# nano 편집기로 system\_info.txt 파일 열기
+nano system_info.txt
+
+#내용 작성
+#!/bin/bash
+echo "System Info: $(uname -a)"
+
+ctrl+o
+crtl+x
+
 ```
 ## 문제 2: 쉘 스크립트 작성 및 실행
 
@@ -73,6 +92,21 @@ backup.sh 파일을 만들어 다음 기능을 수행하는 스크립트를 작�
 **명령어를 작성하세요:**
 ```shell
 \# nano로 backup.sh 파일 생성 및 편집
+nano backup.sh
+
+#내용 작성
+#!/bin/bash
+echo "Today: $(date)"
+echo "Starting Backup..."
+echo " - Directory File List - " 
+echo "$(find . -maxdepth 1 -type f)"
+# find . -maxdepth 1 -type f 
+# 현재 디렉토리 단계(하위로 가지않음) 에서 
+# file type 오브젝트를 찾음.
+
+ctrl+o
+ctrl+x
+
 ```
 ### 2-2. 스크립트 실행 권한 부여
 
@@ -81,6 +115,19 @@ backup.sh 파일에 실행 권한을 부여하세요.
 **명령어를 작성하세요:**
 ```shell
 \# backup.sh 파일에 실행 권한 부여
+#내용 작성
+
+#현재 파일의 권한 확인
+ls -l backup.sh 
+-rw-r--r--. 1 user01 user01 130 Jul 18 23:18 backup.sh
+
+# excute 추가
+chmod 744 backup.sh
+
+# 권한 확인
+ls -l backup.sh
+-rwxr--r--. 1 user01 user01 130 Jul 18 23:18 backup.sh
+
 ```
 ### 2-3. 스크립트 실행
 
@@ -89,6 +136,17 @@ backup.sh 파일에 실행 권한을 부여하세요.
 **명령어를 작성하세요:**
 ```shell
 \# backup.sh 스크립트 실행
+sh backup.sh
+# 결과 값
+Today: Fri Jul 18 11:21:13 PM KST 2025
+Starting Backup...
+ - Directory File List -
+./hello.sh
+./backup.sh
+./system_info.txt
+./data1.txt
+./data2.txt
+./notes.md
 ```
 ## 문제 3: && 연산자를 이용한 다중 명령어
 
@@ -99,6 +157,9 @@ backup.sh 파일에 실행 권한을 부여하세요.
 **명령어를 작성하세요:**
 ```shell
 \# new\_project 디렉터리 생성 후 성공하면 이동
+# 1. new_project 디렉터리 생성 - mkdir ./new_project
+# 2. 성공하면 이동 && cd ./new_project
+mkdir ./new_project && cd ./new_project
 ```
 ### 3-2. 파일 생성 및 편집
 
@@ -107,6 +168,9 @@ test.txt 파일을 생성하고 성공하면 nano로 편집하는 명령어를 �
 **명령어를 작성하세요:**
 ```shell
 \# test.txt 파일 생성 후 성공하면 nano로 편집
+# 1. test.txt 파일 생성 - touch test.txt
+# 2. 성공 시 nano 로 편집 - && nano test.txt
+touch test.txt && nano test.txt
 ```
 ### 3-3. 복합 조건부 실행
 
@@ -115,6 +179,13 @@ test.txt 파일을 생성하고 성공하면 nano로 편집하는 명령어를 �
 **명령어를 작성하세요:**
 ```shell
 \# quick\_test.sh 파일에 "echo 'Hello World'" 내용 저장 후 실행 권한 부여 후 실행
+# 1. quick_test.sh 파일에 "echo 'Hello World'" 내용 저장 -echo -e "#!/bin/bash\necho 'Hello World'" > quick_test.sh
+# 2. 실행 권한 부여 - chmod 500 quick_test.sh
+# 3. 이후 실행 - sh quick_test.sh or ./quick_test.sh
+echo -e "#\!/bin/bash\necho 'Hello World'" > quick_test.sh && chmod 500 quick_test.sh && ./quick_test.sh
+#권한 확인
+ls -l quick_test.sh
+-r-x------. 1 user01 user01 32 Jul 18 23:45 quick_test.sh
 ```
 ## 문제 4: chmod를 이용한 권한 조정
 
@@ -125,8 +196,11 @@ test\_script.sh 파일을 생성하고 소유자에게만 모든 권한을 부�
 **명령어를 작성하세요:**
 ```shell
 \# test\_script.sh 파일 생성
-
 \# 소유자에게만 읽기, 쓰기, 실행 권한 부여 (700)
+touch test_script.sh && chmod 700 test_script.sh
+#권한 확인
+ls -l test_script.sh
+-rwx------. 1 user01 user01 0 Jul 18 23:54 test_script.sh
 ```
 ### 4-2. 그룹 권한 추가
 
@@ -135,6 +209,9 @@ test\_script.sh 파일에 그룹 사용자에게 읽기 및 실행 권한을 추
 **명령어를 작성하세요:**
 ```shell
 \# 그룹에 읽기, 실행 권한 추가 (750)
+chmod 750 test_script.sh
+#권한 확인
+-rwxr-x---. 1 user01 user01 0 Jul 18 23:54 test_script.sh
 ```
 ### 4-3. 권한 확인
 
@@ -143,6 +220,7 @@ test\_script.sh 파일에 그룹 사용자에게 읽기 및 실행 권한을 추
 **명령어를 작성하세요:**
 ```shell
 \# 파일 권한 확인
+ls -l "file_name"
 ```
 ### 4-4. 실행 권한 제거
 
@@ -151,6 +229,10 @@ test\_script.sh 파일에서 모든 사용자의 실행 권한을 제거하세�
 **명령어를 작성하세요:**
 ```shell
 \# 모든 사용자의 실행 권한 제거
+#모든 실행 권한 제거 (사용자,그룹,Others)
+chmod 640 test_script.sh
+#권한 확인
+ls -l test_script.sh
 ```
 ## 문제 5: 종합 실습
 
@@ -165,8 +247,20 @@ test\_script.sh 파일에서 모든 사용자의 실행 권한을 제거하세�
 **작성할 스크립트 내용:**
 ```shell
 \#\!/bin/bash
-
 \# setup.sh 스크립트 내용을 작성하세요
+# 1. logs 디렉터리가 없으면 생성 - mkdir -p ./logs/
+# 2. 현재 날짜와 시간을 logs/setup.log 파일에 기록 - echo -e "#!/bin/bash\n 'Today: $(date)'" >> logs/setup.log
+# 3. "설정 완료" 메시지 출력 echo "설정 완료"
+
+nano setup.sh
+#내용 작성
+#!/bin/bash
+mkdir -p logs && \
+echo -e "#!/bin/bash\n 'Today: $(date)'" >> logs/setup.log && \
+echo "설정 완료"
+
+ctrl + o
+ctrl + x
 ```
 ### 5-2. 스크립트 실행 및 검증
 
@@ -175,6 +269,17 @@ setup.sh 스크립트를 실행하고, 로그 파일이 제대로 생성되었�
 **명령어를 작성하세요:**
 ```shell
 \# setup.sh 실행 권한 부여 후 실행하고, 로그 파일 내용 확인
+# 1. setup.sh 실행 권한 부여 - chmod 744 setup.sh
+# 2. setup.sh 실행 - ./setup.sh or sh setup.sh
+# 3. 로그 파일 내용 확인 - cat ./logs/setup.log
+
+chmod 744 setup.sh && ./setup.sh && cat ./logs/setup.log
+
+#결과 값
+설정 완료
+#!/bin/bash
+ 'Today: Sat Jul 19 12:15:51 AM KST 2025'
+
 ```
 ---
 
@@ -187,6 +292,12 @@ setup.sh 스크립트를 실행하고, 로그 파일이 제대로 생성되었�
 명령어를 작성하세요:
 ```shell
 \# project\_logs 디렉토리 생성 후 User의 쓰기 권한 제거, 권한 확인
+# 1. project_logs 디렉토리 생성 - mkdir -p ./project_logs/
+# 2. User의 쓰기 권한 제거 - chmod 444 ./project_logs/
+# 3. 디렉토리 권한 확인 - ls -ld ./project_logs/
+
+mkdir -p ./project_logs/ && chmod 444 ./project_logs/ && ls -ld ./project_logs/
+
 ```
 ---
 
@@ -203,6 +314,28 @@ setup.sh 스크립트를 실행하고, 로그 파일이 제대로 생성되었�
 nano에서 작성할 내용 예시:
 ```shell
 \# backup 디렉토리 존재 출력
+nano check_dir.sh
+# 1. backup 디렉토리 존재 확인  
+# 2-1. 존재 시 backup 내부에 checked.txt 파일 생성
+# 2-2. 존재하지 않으면 "backup 디렉토리가 없습니다." 메시지 출력
+
+#조건문 사용하지 않을 시
+#find가 정상적으로 값을 찾으면 -exec 가 실행(값이 있으므로) 만일 값을 못 찾으면 -exec는 무시되고(값이 없으므로) find 실패로 간주되어 || 이후 구문이 실행됨.
+
+#!/bin/bash
+find backup -type d -exec touch backup/checked.txt \; || echo "backup 디렉토리가 없습니다"
+
+#조건문 사용 시 
+# backup 디렉토리를 찾아서 있으면 파일 생성 없으면 메시지 출력
+
+#!/bin/bash
+if [ -d backup ]; then
+  touch backup/checked.txt
+else
+  echo "backup 디렉토리가 없습니다"
+fi
+
+
 ```
 ---
 
@@ -213,6 +346,13 @@ nano에서 작성할 내용 예시:
 명령어를 작성하세요:
 ```shell
 \# 디렉토리 이동 && 파일 생성 && 메시지 출력
+# project_logs 권한 확인 w 추가 - chmod 744 project_logs - 디렉토리 내에서 echo 실행까지 권한 필요
+# 1. project_logs 디렉토리로 이동 - cd ./project_logs
+# 2. 이동에 성공 후 log.txt 파일 생성 - touch log.txt
+# 3. "로그 생성 완료" 메시지 출력 - echo "로그 생성 완료"
+
+cd ./project_logs && touch log.txt && echo "로그 생성 완료"
+
 ```
 ---
 
@@ -223,6 +363,8 @@ nano에서 작성할 내용 예시:
 명령어를 작성하세요:
 ```shell
 \# 사용자에게만 실행 권한 부여 및 권한 확인
+chmod 744 ./check_dir.sh && ls -l ./check_dir.sh
+-rwxr--r--. 1 user01 user01 116 Jul 19 01:07 ./check_dir.sh
 ```
 ---
 
