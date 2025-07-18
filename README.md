@@ -16,5 +16,5 @@ BespinGlobal x Green Computer Acamedy Study
 ### 수업실습
 * [수업 실습 정리](https://github.com/costRider/study_linuxs/blob/51027f6cb0f16dbf1c8b18eebce692cacdbb7015/study)
     * [기본 명령어 실습(cd,mkdir 등)](https://github.com/costRider/study_linuxs/blob/e0e94ae5682e5ff56d473cfe48e350413dfa355c/study/powershell_20250715.sh)
-    * 
+    * [와일드카드 실습](https://github.com/costRider/study_linuxs/blob/27c4b293eea45e488d255ddc727502b2a0190a1a/study/linux_20250717.md)
 
