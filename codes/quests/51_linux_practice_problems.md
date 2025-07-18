@@ -32,14 +32,10 @@
 
 먼저 다음 명령어를 실행하여 실습 환경을 만들어보세요:
 ```shell
-mkdir shell\_practice
-
-cd shell\_practice
-
-touch hello.sh backup.sh system\_info.txt
-
-touch data1.txt data2.txt notes.md
-
+mkdir shell\_practice && \
+cd shell\_practice && \
+touch hello.sh backup.sh system\_info.txt && \
+touch data1.txt data2.txt notes.md && \
 mkdir scripts logs temp
 ```
 ## 문제 1: nano 편집기 사용
