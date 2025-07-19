@@ -249,14 +249,14 @@ ls -l test_script.sh
 \#\!/bin/bash
 \# setup.sh 스크립트 내용을 작성하세요
 # 1. logs 디렉터리가 없으면 생성 - mkdir -p ./logs/
-# 2. 현재 날짜와 시간을 logs/setup.log 파일에 기록 - echo -e "#!/bin/bash\n 'Today: $(date)'" >> logs/setup.log
+# 2. 현재 날짜와 시간을 logs/setup.log 파일에 기록 - echo "'Today: $(date)'" >> logs/setup.log
 # 3. "설정 완료" 메시지 출력 echo "설정 완료"
 
 nano setup.sh
 #내용 작성
 #!/bin/bash
 mkdir -p logs && \
-echo -e "#!/bin/bash\n 'Today: $(date)'" >> logs/setup.log && \
+echo "'Today: $(date)'" >> logs/setup.log && \
 echo "설정 완료"
 
 ctrl + o
