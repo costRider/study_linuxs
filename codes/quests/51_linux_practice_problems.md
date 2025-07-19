@@ -320,8 +320,8 @@ nano check_dir.sh
 # 2-2. 존재하지 않으면 "backup 디렉토리가 없습니다." 메시지 출력
 
 #조건문 사용하지 않을 시
-#find가 정상적으로 값을 찾으면 -exec 가 실행(값이 있으므로) 만일 값을 못 찾으면 -exec는 무시되고(값이 없으므로) find 실패로 간주되어 || 이후 구문이 실행됨.
-
+#find가 정상적으로 값을 찾으면 -exec 가 실행(값이 있으므로) 만일 값을 못 찾으면 -exec는 실패되어 1 return|| 이후 구문이 실행됨.
+# + 추가로 만일 backup이 존재하여 exec가 실행된다 하더라도 backup에 권한이 없으면 실패로 간주되어 echo 가 발생함
 #!/bin/bash
 find backup -type d -exec touch backup/checked.txt \; || echo "backup 디렉토리가 없습니다"
 
