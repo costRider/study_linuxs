@@ -61,6 +61,13 @@
 - echo "실습 환경이 구성되었습니다\!"  
 - tree permission\_practice  
     
+현재 그룹 - 사용자
+developers - alice,bobmcharlie
+managers - diana,alice
+
+사용자 목록
+exe,diana,charlie,bob,alice
+
   ---
 
   ## **1\. 기본 권한 설정**
@@ -76,8 +83,13 @@
 **명령어를 작성하세요:**
 
 - \# 1-1 답안 작성란  
--   
-- 
+- chown -R alice:developers company/departments/dev/
+- chmod 770 -R company/departments/dev/
+- stat company/departments/dev
+- chmod 064 company/departments/dev/main.py
+- stat company/departments/dev/main.py
+- chmod 010 company/departments/dev/build.sh
+- stat company/departments/dev/build.sh
 
 
   ### **1-2. 개인 디렉터리 보안 설정**
@@ -91,9 +103,14 @@
 **명령어를 작성하세요:**
 
 - \# 1-2 답안 작성란  
--   
--   
-    
+-   chown alice:alice private/alice/
+-   chmod 700 private/alice/
+- chown alice:alice private/alice/personal.txt
+stat private/alice/personal.txt
+- chmod 600 private/alice/personal.txt 
+- chown bob:bob private/bob/config.json
+- chmod 600 private/bob/config.json 
+stat private/bob/config.json
   ---
 
   ## **2\. 그룹 기반 권한 관리**
@@ -135,7 +152,7 @@
 다음 파일들에 특수 권한을 설정하세요:
 
 * `shared/tools/deploy.sh`: SetGID 설정으로 developers 그룹 권한으로 실행  
-* `backup/` 디렉터리: Sticky Bit 설정으로 파일 소유자만 삭제 가능  
+* `backup/` 디렉터리: Sticky Bit 설정으로 파일 소유자만 삭제 가능  - 문제 제외
 * `company/departments/hr/salaries.txt`: SetUID 설정 (실제 환경에서는 권장하지 않지만 실습용)
 
 **명령어를 작성하세요:**
@@ -193,7 +210,7 @@
     
   ---
 
-  ## **5\. 실전 시나리오 해결**
+  ## **5\. 실전 시나리오 해결** - 문제 제외
 
   ### **5-1. 보안 감사 및 수정**
 
