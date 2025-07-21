@@ -4,29 +4,31 @@
 
 ### umask 생략
 
+# 미완(작성중) -0722(금일내로 작성예정)
+
 **먼저 다음 명령어들을 실행하여 실습 환경을 구성하세요:**
 
 - \# 실습 디렉터리 생성(/root 사용)  
 - mkdir permission\_practice && \
-- cd permission\_practice && \
+- cd permission\_practice
 -   
 - \# 사용자 및 그룹 생성 (관리자 권한 필요)  
 - sudo useradd \-m \-s /bin/bash alice  && \
 - sudo useradd \-m \-s /bin/bash bob  && \
 - sudo useradd \-m \-s /bin/bash charlie && \ 
 - sudo useradd \-m \-s /bin/bash diana && \ 
-- sudo useradd \-m \-s /bin/bash eve  && \
+- sudo useradd \-m \-s /bin/bash eve
 -   
 - \# 그룹 생성  
 - sudo groupadd developers  && \
-- sudo groupadd managers  && \
+- sudo groupadd managers
 -   
 - \# 사용자를 그룹에 추가  
 - sudo usermod \-a \-G developers alice && \ 
 - sudo usermod \-a \-G developers bob  && \
 - sudo usermod \-a \-G developers charlie && \
 - sudo usermod \-a \-G managers diana && \
-- sudo usermod \-a \-G managers alice && \
+- sudo usermod \-a \-G managers alice
 - \# eve는 기타 사용자로 어떤 그룹에도 속하지 않음  
 -   
 - \# 복잡한 디렉터리 구조 생성  
@@ -43,7 +45,7 @@
 - touch private/alice/{personal.txt,settings.conf,backup.tar}  && \
 - touch private/bob/{notes.md,config.json,archive.zip} && \ 
 - touch backup/daily/{backup\_$(date \+%Y%m%d).tar.gz,log\_$(date \+%Y%m%d).txt}  && \
-- touch logs/2024/06/{access.log,error.log,debug.log,system.log}  && \
+- touch logs/2024/06/{access.log,error.log,debug.log,system.log}
 -   
 - \# 실행 가능한 스크립트 파일 생성  
 - echo '\#\!/bin/bash' \> shared/tools/deploy.sh  && \
@@ -51,18 +53,17 @@
 - echo '\#\!/bin/bash' \> shared/tools/backup.sh  && \
 - echo 'echo "Backup script"' \>\> shared/tools/backup.sh  && \
 - echo '\#\!/bin/bash' \> company/departments/dev/build.sh  && \
-- echo 'echo "Build script"' \>\> company/departments/dev/build.sh  && \
+- echo 'echo "Build script"' \>\> company/departments/dev/build.sh
 -   
 - \# 설정 파일 생성  
 - echo "database\_host=localhost" \> company/departments/dev/database.conf  && \
 - echo "api\_key=secret123" \> company/departments/dev/api.conf  && \
-- echo "salary\_data=confidential" \> company/departments/hr/salaries.txt  && \
--   
-- echo "실습 환경이 구성되었습니다\!"  
+- echo "salary\_data=confidential" \> company/departments/hr/salaries.txt && \
+- echo "실습 환경이 구성되었습니다\!" && \
 - tree permission\_practice  
     
 현재 그룹 - 사용자
-developers - alice,bobmcharlie
+developers - alice,bob,charlie
 managers - diana,alice
 
 사용자 목록
@@ -83,13 +84,33 @@ exe,diana,charlie,bob,alice
 **명령어를 작성하세요:**
 
 - \# 1-1 답안 작성란  
-- chown -R alice:developers company/departments/dev/
-- chmod 770 -R company/departments/dev/
+#디렉터리가 root 하위로 존재하기 때문에 확인을 위한 최소 실행? 권한을 보장해 주어야한다.
+#상위 root 하위로 생성한 company/departments 까지 읽기 확장
+chmod o+x /root && \
+chmod o+x /root/permission_practice && \
+chmod o+x /root/permission_practice/company && \
+chmod o+x /root/permission_practice/company/departments
+
+#디렉터리 개발팀만 접근 가능 소유자와 그룹은 읽기/쓰기/실행 가능 권한을 설정함 
+#chmod 770 company/departments/dev/ rwxrwx--- 로 소유자와 그룹에 대해 권한을 설정함. 
+- chmod 770 company/departments/dev/
+#chown {사용자}:{그룹} {파일or디렉토리} 를 사용하여 developers 그룹을 할당 소유자는 developer 중 한명으로 설정함
+- chown alice:developers company/departments/dev/
+#확인
 - stat company/departments/dev
-- chmod 064 company/departments/dev/main.py
-- stat company/departments/dev/main.py
-- chmod 010 company/departments/dev/build.sh
-- stat company/departments/dev/build.sh
+#이후 diana 로 login 후 dev로 입장시 permission denied 
+
+#개발팀(developer)은 읽기/쓰기, Others는 읽기만 가능
+#others가 접근하기 위해 상위 디렉토리에 x가 필요함 + 추가 chmod o+x /root/permission_practice/company/departments/dev/
+- chmod 664 company/departments/dev/main.py
+- chown :developers company/departments/dev/main.py
+#diana로 로그인 후 확인 nano로 file이 열리긴 하나 저장시 permission denied가 발생함(정상)
+
+#개발팀만 실행가능 
+- chmod 550 company/departments/dev/build.sh
+- chown alice:developers company/departments/dev/build.sh
+#110만으로 실행이 될 줄 알았으나 실행을 하려면 어쨋든 내용을 읽어서 해당 내용을 실행해야 하기 때문에 r이 필요하다(바이너리 ELF 파일 같은건 제외)
+#이후 bob/diana 로 서로 로그인 하여 확인해보면 bob은 실행, diana는 permission denied가 발생함.
 
 
   ### **1-2. 개인 디렉터리 보안 설정**
@@ -103,14 +124,18 @@ exe,diana,charlie,bob,alice
 **명령어를 작성하세요:**
 
 - \# 1-2 답안 작성란  
--   chown alice:alice private/alice/
--   chmod 700 private/alice/
+#alice 전용으로 디렉토리 설정 owner와 group 모두 alice로 설정 하고 onwer 에게만 권한 설정
+- chown alice:alice private/alice/
+- chmod 700 private/alice/
+
+#마찬가지로 alice 설정 후 권한 rw 설정
 - chown alice:alice private/alice/personal.txt
-stat private/alice/personal.txt
 - chmod 600 private/alice/personal.txt 
+
+#동일하게 bob 설정
 - chown bob:bob private/bob/config.json
 - chmod 600 private/bob/config.json 
-stat private/bob/config.json
+
   ---
 
   ## **2\. 그룹 기반 권한 관리**
@@ -126,9 +151,27 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 2-1 답안 작성란  
--   
-- 
+#developers, managers / 두개 이상의 그룹을 할당하는 것이 가능한지 모르겠음
+#developers, managers 를 포함하는 하나의 그룹 all 을 생성하고 해당 사용자들을 통합 그룹에 편입
+- groupadd devenagers
+- gpasswd -a alice devenagers
+- gpasswd -a bob devenagers
+- gpasswd -a charlie devenagers
+- gpasswd -a diana devenagers
+- chown alice:devenagers shared/documents/
 
+#ACL을 이용하여 그룹 추가 - 8번에서 올라옴
+- setfacl -m g:developers:r shared/documents/
+- setfacl -m g:managers:r shared/documents/
+- chmod 240 shared/documents/
+
+#developer만 접근가능
+- chown alice:developers shared/resources/
+- chmod 010 shared/resources/
+
+#모든 사용자 읽기 가능, developers 실행 가능
+- chown :developers shared/tools/
+- chmod 454 shared/tools/
 
   ### **2-2. 프로젝트별 협업 권한**
 
@@ -140,9 +183,14 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 2-2 답안 작성란  
--   
--   
-    
+- chown alice:developers company/projects/project_a/
+- chmod 770 company/projects/project_a/
+
+- chown alice:bob company/projects/project_b/
+- chmod 110 company/projects/project_b/
+#acl 이용
+- setfacl -m u:alice:x company/projects/project_b/
+- setfacl -m u:bob:x company/projects/project_b/
   ---
 
   ## **3\. 고급 권한 설정**
@@ -158,8 +206,18 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 3-1 답안 작성란  
--   
-- 
+#SetGID 설정으로 디렉토리에 대해 developers 그룹 설정
+#해당 권한을 
+- chown alice:developers shared/tools
+- chmod g+s shared/tools
+
+- chown alice:developers shared/tools/deploy.sh
+- chmod 750 shared/tools/deploy.sh
+
+#SetUID 설정하여 
+- chown bob company/departments/hr/salaries.txt
+- chmod u+s company/departments/hr/salaries.txt
+
 
 
   ### **3-2. 숫자 표기법으로 복합 권한 설정**
@@ -173,9 +231,9 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 3-2 답안 작성란  
--   
--   
-    
+- chmod 640 company/departments/finance/budget.xlsx
+- chmod 644 shared/documents/manual.pdf
+- chmod 640 logs/2024/06/system.log
   ---
 
   ## **4\. 소유권 및 그룹 관리**
@@ -191,9 +249,9 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 4-1 답안 작성란  
--   
-- 
-
+- chown -R alice:developers company/departments/dev/
+- chown -R diana:managers company/departments/hr/
+- chown -R root:developers shared/tools/
 
   ### **4-2. 그룹 전용 변경**
 
@@ -205,8 +263,8 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 4-2 답안 작성란  
--   
--   
+- chown :managers company/projects/
+- chown :developers backup/daily/
     
   ---
 
@@ -223,11 +281,11 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 5-1 답안 작성란 (보안 감사 명령어)  
--   
--   
+- 문제 제외  
+- 문제 제외
 - \# 5-1 답안 작성란 (수정 명령어)  
--   
--   
+- 문제 제외
+- 문제 제외
     
   ---
 
@@ -244,9 +302,15 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 6-1 답안 작성란  
--   
-- 
-
+- #alice로 로그인 umask 확인 umask 027로 설정
+- su alice
+- umask 
+- 0022 #확인
+- umask 027
+- mkdir private/alice/umask_test
+- stat private/alice/umask_test
+ - Access: (0750/drwxr-x---)  Uid: ( 1001/   alice)   Gid: ( 1001/   alice)
+ #디렉토리 777에서 -027 하여 750으로 확인
 
   ### **6-2. 사용자별 umask 커스터마이징**
 
@@ -259,8 +323,18 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 6-2 답안 작성란  
--   
--   
+#alice
+- su alice
+- umask 022
+- exit
+#diana
+- su diana
+- umask 077
+- exit
+#eve
+- su eve
+- umask 002
+- exit
     
   ---
 
@@ -277,9 +351,17 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 8-1 답안 작성란  
--   
-- 
+- chmod o+x shared/tools
+- chown alice:developers shared/tools/deploy.sh
+- chmod 550 shared/tools/deploy.sh 
+#ACL 기능 사용
+#다른 권한들 삭제 
+- chmod 000 shared/tools/backup.sh
+- setfacl -m u:diana:rx shared/tools/backup.sh
+- setfacl -m u:alice:rx shared/tools/backup.sh
+#번외로 상단 문제의 2개 팀 문제를 ACL로 해결할 수 있음.
 
+- chmod 500 company/departments/dev/build.sh
 
   ### **8-2. 시스템 스크립트 보안 설정**
 
@@ -292,8 +374,8 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 8-2 답안 작성란  
--   
--   
+- 
+- 
     
   ---
 
@@ -311,7 +393,7 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 9-1 답안 작성란  
--   
+- 
 - 
 
 
@@ -326,8 +408,8 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 9-2 답안 작성란  
--   
--   
+- 
+- 
     
   ---
 
@@ -345,8 +427,8 @@ stat private/bob/config.json
 **명령어를 작성하세요:**
 
 - \# 10-1 답안 작성란  
--   
--   
+- 
+- 
     
   ---
 
