@@ -74,7 +74,6 @@ cat operating_systems.txt | sort | uniq -c
 
 * \# 명령어를 작성하세요  
 cat fruits.txt | sort | uniq -c
-??
 
   ---
 
@@ -89,7 +88,7 @@ cat system.log | grep "ERROR"
 **4-2.** `system.log` 파일에서 "ERROR" 또는 "WARNING"이 포함된 라인을 라인 번호와 함께 출력하세요.
 
 * \# 명령어를 작성하세요
-??
+grep -Ein "error|warning" system.log
 
 
 **4-3.** `employees.txt` 파일에서 Seoul에 거주하는 직원의 정보를 출력하세요.
