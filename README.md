@@ -20,4 +20,4 @@ BespinGlobal x Green Computer Acamedy Study
     * [기본 명령어 실습(cd,mkdir 등)](https://github.com/costRider/study_linuxs/blob/e0e94ae5682e5ff56d473cfe48e350413dfa355c/study/powershell_20250715.sh)
     * [와일드카드 실습](https://github.com/costRider/study_linuxs/blob/27c4b293eea45e488d255ddc727502b2a0190a1a/study/linux_20250717.md)
     * [Nano 실습](https://github.com/costRider/study_linuxs/blob/883b984c7a4c90233d7608dee9eba3ffc949cebe/study/50_linux_nano_practice_problems.md)
-
+    * [프로필 실습]
