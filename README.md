@@ -21,4 +21,5 @@ BespinGlobal x Green Computer Acamedy Study
     * [와일드카드 실습](https://github.com/costRider/study_linuxs/blob/27c4b293eea45e488d255ddc727502b2a0190a1a/study/linux_20250717.md)
     * [Nano 실습](https://github.com/costRider/study_linuxs/blob/883b984c7a4c90233d7608dee9eba3ffc949cebe/study/50_linux_nano_practice_problems.md)
     * [프로필 실습](https://github.com/costRider/study_linuxs/blob/bb1a413756d87715089f5f6d3f6ed345ca58c3f9/codes/quests/60_profiles_env.md)
-    * [쉘 스크립트 실습](https://github.com/costRider/study_linuxs/blob/e74425c1129c201884ae86acb296c9c1dfc826a6/codes/quests/80_1_shell_script_variables.md)
+    * [쉘 스크립트 실습 1](https://github.com/costRider/study_linuxs/blob/e74425c1129c201884ae86acb296c9c1dfc826a6/codes/quests/80_1_shell_script_variables.md)
+    * [쉘 스크립트 실습 2](https://github.com/costRider/study_linuxs/blob/fcacc4ef20bee9a59ba6217a99288dbd46c7f638/codes/quests/80_2_shell_variables_read.md)
