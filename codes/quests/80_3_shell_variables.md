@@ -102,6 +102,7 @@ Enter filename: sample.txt
 Word count in sample.txt: 123
 
 ```shell
+#!/bin/bash
 read -p "파일명을 입력해주세요: " title
 
 echo "단어 수" 
@@ -130,6 +131,7 @@ bash count\_keyword.sh error logfile.txt
 The word 'error' appeared 5 times.
 
 ```shell
+#!/bin/bash
 word="$1"
 fileName="$2"
 result=$(grep -ic "$word" "$fileName".txt)
@@ -161,8 +163,20 @@ Enter input file: article.txt
 
 Unique words saved to: article\_unique.txt
 
-cat article.txt | tr -s " " "\n" | sort | uniq -c 
+```shell
+nano unique_word.sh
 
+#!/bin/bash
+
+
+#tr의 옵션 -cs
+#영문자가 아닌 것과 중복제거를 \n 로 치환 
+
+read -p "파일명을 입력해주세요: " filename
+cat "$filename" | tr -cs "A-Za-z" "\n" | sort | uniq > "${filename}_unique.txt"
+echo "입력한 파일의 고유단어 모음: ${filename}_unique.txt"
+
+```
 ---
 
 ### **✅ \[문제 4\] 두 파일의 마지막 줄 비교**
@@ -184,6 +198,15 @@ cat article.txt | tr -s " " "\n" | sort | uniq -c
 bash compare\_lastline.sh file1.txt file2.txt
 
 Result: Different
+
+```shell
+#!/bin/bash
+
+line1=$(tail -n 1 "$1")
+line2=$(tail -n 1 "$2")
+diff <(echo "$line1") <(echo "$line2") && echo "Same" || echo "Different"
+
+```
 
 ---
 
@@ -214,6 +237,21 @@ Output:
 3 naver.com
 
 2 daum.net
+
+```shell
+nano  email_domains.sh
+
+#!/bin/bash
+
+#입력받음
+read -p "파일명을 입력하세요: " file
+
+# 이메일 목록이 있는 파일에서 도메인만 추출해서 카운트
+cat $file | cut -d'@' -f2 | sort | uniq -c | sort -nr
+
+
+
+```
 
 ---
 
@@ -246,5 +284,19 @@ Output:
 30 and  
 
 20 python  
+
+```shell
+#!/bin/bash
+
+read -p "파일명을 입력하세요: " file
+cat "$file" \
+  | tr '[:upper:]' '[:lower:]' \
+  | tr -cs '[:alnum:]' '\n' \
+  | sort \
+  | uniq -c \
+  | sort -nr
+
+
+```
 
 ...
