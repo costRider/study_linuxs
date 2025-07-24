@@ -102,7 +102,10 @@ Enter filename: sample.txt
 Word count in sample.txt: 123
 
 ```shell
+nano wordcount.sh
+
 #!/bin/bash
+
 read -p "파일명을 입력해주세요: " title
 
 echo "단어 수" 
@@ -131,6 +134,8 @@ bash count\_keyword.sh error logfile.txt
 The word 'error' appeared 5 times.
 
 ```shell
+nano count_keyword.sh
+
 #!/bin/bash
 word="$1"
 fileName="$2"
@@ -200,10 +205,13 @@ bash compare\_lastline.sh file1.txt file2.txt
 Result: Different
 
 ```shell
+nano compare_lastline.sh
+
 #!/bin/bash
 
-line1=$(tail -n 1 "$1")
-line2=$(tail -n 1 "$2")
+line1=$(grep . $1 | tail -n 1)
+line1=$(grep . $2 | tail -n 1)
+
 diff <(echo "$line1") <(echo "$line2") && echo "Same" || echo "Different"
 
 ```
@@ -286,6 +294,8 @@ Output:
 20 python  
 
 ```shell
+nano word_freq_sort.sh
+
 #!/bin/bash
 
 read -p "파일명을 입력하세요: " file
