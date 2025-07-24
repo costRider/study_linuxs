@@ -271,7 +271,7 @@ EOF
 # 변수 선언부
 answer=""
 count=0
-file="./word.txt"
+file="./words.txt"
 result=""
 
 #사용자로부터 입력 값 받음 
