@@ -242,14 +242,15 @@ EOF
 
 ```shell
 # 변수 선언부
-result=""
-file="./word.txt"
 answer=""
 count=0
+file="./word.txt"
+result=""
 
 #사용자로부터 입력 값 받음 
 read -p "대,소문자를 구분하시겠습니까?(Y/N) " input
 
+#입력 값 받아 소문자로 치환
 answer=$(echo "$input" | tr 'A-Z' 'a-z')
 
 if [ "$answer" == "y" ]; then
@@ -263,8 +264,10 @@ else
 	exit 1
 fi
 
+#중복도 값 계산을 위한 최상위 중복도 값 확인
 count=$(echo "$result" | sort -k1 -nr | head -n 1 | awk '{print $1}')
 
+#중복도 체크
 if [ "$count" -ge 3 ]; then
 	echo "-높은 중복도-"
 elif [ "$count" -ge 2 ]; then
